@@ -1,42 +1,76 @@
 namespace TestPerson
 {
-	[TestClass]
-	public class TestPerson
-	{
-		[TestMethod]
-		public void TestConstructors()
-		{
-			//declare variable
-			personClass.Person myPerson;
+    [TestClass]
+    public class TestPerson
+    {
+        [TestMethod]
+        public void TestConstructors()
+        {
+            //declare variable
+            personClass.Person myPerson;
 
-			//test parametless constructor
-			myPerson = new personClass.Person();
+            //test parametless constructor
+            myPerson = new personClass.Person();
 
-			//test constructor
-			myPerson = new personClass.Person("Mario", "Rossi");
+            //test constructor
+            myPerson = new personClass.Person("Andrea", "Bocedi");
 
-			//test constructor
-			myPerson = new personClass.Person("Mario", "Rossi", personClass.Person.GenderType.Male);
+            //test constructor
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.Male);
 
-			//test constructor
-			myPerson = new personClass.Person("Mario", "Rossi", personClass.Person.GenderType.Male, "Roma", new DateTime(2000, 10, 15));
+            //test constructor
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.Male, "Sassuolo", new DateTime(1991, 11, 25));
 
-			//test constructor
-			myPerson = new personClass.Person("Mario", "Rossi", personClass.Person.GenderType.Male, "Roma", "RM", new DateTime(2000, 10, 15));
-		}
+            //test constructor
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.Male, "Sassuolo", "MO", new DateTime(1991, 11, 25));
+        }
 
-		[TestMethod]
-		public void TestFiscalCode(){
-			//declare variable
-			personClass.Person myPerson;
+        [TestMethod]
+        public void TestFiscalCode()
+        {
+            //declare variable
+            personClass.Person myPerson;
 
-			//create object
-			myPerson = new personClass.Person("Cladio", "Rossi", personClass.Person.GenderType.Male, "Rimini", "RN", new DateTime(1972, 8, 21));
+            //test normal case
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.Male, "Sassuolo", "MO", new DateTime(1991, 11, 25));
 
-			if (myPerson.FiscalCode() != "RSSCLD72M21H294M"){
-				throw new Exception("Wrong fiscal code!");
-			}
+            if (myPerson.FiscalCode() != "BCDNDR91S25I462T")
+            {
+                throw new Exception("Wrong fiscal code!");
+            }
 
-		}
-	}
+            //test gender not specified
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.NotSpecified, "Sassuolo", "MO", new DateTime(1991, 11, 25));
+
+            if (myPerson.FiscalCode() != "")
+            {
+                throw new Exception("Wrong fiscal code!");
+            }
+        }
+
+        [TestMethod]
+        public void TestAge()
+        {
+            //declare variable
+            personClass.Person myPerson;
+
+            //test normal case
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.Male, "Sassuolo", "MO", new DateTime(2000, 8, 25));
+
+            if (myPerson.Age() != 23 )
+            {
+                throw new Exception("Wrong Age!");
+            }
+
+            //test birthday not reached
+            myPerson = new personClass.Person("Andrea", "Bocedi", personClass.Person.GenderType.NotSpecified, "Sassuolo", "MO", new DateTime(2000, 11, 25));
+
+            if (myPerson.Age() != 22)
+            if (myPerson.Age() != 22)
+            {
+                throw new Exception("Wrong Age!");
+            }
+
+        }
+    }
 }
